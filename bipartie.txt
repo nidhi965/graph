@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool dfs(int src,int n,vector<vector<int>>& adj,vector<int>&color){
+        //vis[src]=1;
+        if(color[src]==-1)color[src]=1;
+        for(auto i:adj[src]){
+            if(color[i]==-1){
+                /*if(color[i]==-1)*/
+                    color[i]=1-color[src];
+                   if(dfs(i,n,adj,color)==false)
+                       return false;
+                }
+                else if(color[i]==color[src])
+                    return false;
+            }
+        
+        return true;     
+    }
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n=graph.size();
+        //vector<int>vis(n,0);
+        vector<int>color(n,-1);
+        for(int i=0;i<n;i++){
+            if(color[i]==-1){
+               if(dfs(i,n,graph,color)==false)
+                   return false;
+            }
+        }
+        
+        return true;
+    }
+};
